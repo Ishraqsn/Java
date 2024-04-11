@@ -1,0 +1,234 @@
+It also ensures that the software is modular, easy to understand, debug, and refactor.
+
+
+
+1.Single Responsibility Principle (SRP)
+
+**every Java class must perform a single functionality
+
+
+---mashed up class due to multiple functionalities---
+
+public class Student
+{
+public void printDetails();
+{
+//functionality of the method
+}
+pubic void calculatePercentage();
+{
+//functionality of the method
+}
+public void addStudent();
+{
+//functionality of the method
+}
+}
+
+
+--------------SINGLE RESPONSIBILITY-----------------
+
+public class Student
+{
+public void addStudent();
+{
+//functionality of the method
+}
+}
+
+
+
+
+public class PrintStudentDetails
+{
+public void printDetails();
+{
+//functionality of the method
+}
+}
+
+
+
+public class Percentage
+{
+public void calculatePercentage();
+{
+//functionality of the method
+}
+}
+
+
+2. Open-Closed Principle (OCP)
+
+**the module should be open for extension but closed for modification.
+
+----------------------NON OPEN CLOSED------------------
+public class VehicleInfo
+{
+public double vehicleNumber(Vehicle vcl)
+{
+if (vcl instanceof Car)
+{
+return vcl.getNumber();
+if (vcl instanceof Bike)
+{
+return vcl.getNumber();
+}
+}
+
+
+**If we want to add another subclass named Truck, simply,
+we add one more if statement that violates the open-closed principle.
+
+-----------------OPEN CLOSED---------------------------
+
+public class VehicleInfo
+{
+public double vehicleNumber()
+{
+//functionality
+}
+}
+public class Car extends VehicleInfo
+{
+public double vehicleNumber()
+{
+return this.getValue();
+}
+public class Car extends Truck
+{
+public double vehicleNumber()
+{
+return this.getValue();
+}
+
+
+
+
+3.Liskov Substitution Principle (LSP)
+
+**derived classes must be completely substitutable for their base classes.
+
+--------------------------------LSP----------------------
+
+public class Student
+{
+private double height;
+private double weight;
+public void setHeight(double h)
+{
+height = h;
+}
+public void setWeight(double w)
+{
+weight= w;
+}
+...
+}
+public class StudentBMI extends Student
+{
+public void setHeight(double h)
+{
+super.setHeight(h);
+super.setWeight(w);
+}
+public void setWeight(double h)
+{
+super.setHeight(h);
+super.setWeight(w);
+}
+}
+
+
+**The above classes violated the Liskov substitution principle because the StudentBMI class has extra constraints
+i.e. height and weight that must be the same. Therefore, the Student class (base class) cannot be replaced by
+StudentBMI class (derived class).Hence, substituting the class Student with StudentBMI class may result in unexpected behavior.
+
+4.Interface Segregation Principle (ISP)
+
+**larger interfaces split into smaller ones. Because the implementation classes use only the methods that are required.
+We should not force the client to use the methods that they do not want to use.
+
+
+----------------VIOLATES ISP----------------
+public interface Conversion
+{
+public void intToDouble();
+public void intToChar();
+public void charToString();
+}
+
+
+Solution :
+public interface ConvertIntToDouble
+{
+public void intToDouble();
+}
+
+
+public interface ConvertIntToChar
+{
+public void intToChar();
+}
+
+
+public interface ConvertCharToString
+{
+public void charToString();
+}
+
+
+
+
+5.Dependency Inversion Principle (DIP)
+
+**we must use abstraction (abstract classes and interfaces) instead of concrete implementations.
+ High-level modules should not depend on the low-level module but both should depend on the abstraction.
+ Because the abstraction does not depend on detail but the detail depends on abstraction.
+ It decouples the software.
+
+
+ public class WindowsMachine
+ {
+ //functionality
+ }
+
+
+ Above It is ok, if we have not keyboard and mouse to work on Windows.
+  To solve this problem, we create a constructor of the class and add the instances of the keyboard and monitor.
+
+
+
+
+
+ public class WindowsMachine
+ {
+ public final keyboard;
+ public final monitor;
+ public WindowsMachine()
+ {
+ monitor = new monitor();  //instance of monitor class
+ keyboard = new keyboard(); //instance of keyboard class
+ }
+ }
+
+
+ **Now we can work on the Windows machine with the help of a keyboard and mouse.
+ But we still face the problem. Because we have tightly coupled the three classes together by using the new keyword.
+  It is hard o test the class windows machine.
+
+
+ public class WindowsMachine
+ {
+ private final Keyboard keyboard;
+ private final Monitor monitor;
+ public WindowsMachine(Keyboard keyboard, Monitor monitor)
+ {
+ this.keyboard = keyboard;
+ this.monitor = monitor;
+ }
+ }
+
+
+ **In the above code, we have used the dependency injection to add the keyboard dependency in the WindowsMachine class.
+  Therefore, we have decoupled the classes.
