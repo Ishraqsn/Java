@@ -1,0 +1,303 @@
+create database organization;
+use organization;
+create table department(
+id int not null unique,
+name varchar(50),
+primary key(id)
+);
+
+insert into department values
+(1,"HR"),
+(2,"IT"),
+(3,"SALES"),
+(4,"ADMIN");
+
+select * from department;
+
+create table employee(
+id int not null unique,
+first_name varchar(50),
+last_name varchar(50),
+salary int,
+dob date,
+gender varchar(10),
+dept_id int,
+primary key(id),
+foreign key(dept_id) references department(id)
+);
+
+insert into employee values
+(1,'Rahul','Singh',20000,'1990-12-12',"Male",3),
+(2,'Dev','Raj',15000,'1998-10-10',"Male",1),
+(3,'Ritu','Singh',25000,'2000-01-07',"Female",3),
+(4,'Robert','Nath',19000,'1995-11-12',"Male",2),
+(5,'Das','Dev',44000,'1980-07-09',"Male",4),
+(6,'Rahul','Thakur',20000,'1990-12-12',"Male",4),
+(7,'Neha','Sharma',34000,'1985-09-12',"Female",4),
+(8,'Deepak','Verma',20000,'1990-12-12',"Male",3),
+(9,'Manoj','Pandey',56000,'1990-12-12',"Male",1),
+(10,'Asad','Ahmad',2000,'1990-12-12',"Male",2);
+
+select e.id,d.id from employee e join department d on (e.dept_id=d.id);
+
+select * from employee e inner join department d on (e.dept_id=d.id);
+
+select * from employee where last_name like "%Singh%";
+
+select count(id),gender from employee group by gender ;
+
+select * from employee where salary<19000;
+
+select first_name,salary from employee  order by salary desc;
+
+explain select * from employee where last_name= "Singh";
+
+explain select * from employee where salary<19000;
+
+explain select * from employee where salary<140000;
+
+create index salary_idx on employee(salary);
+
+create index last_name_idx on employee(last_name);
+
+explain select * from employee where last_name= "Singh";
+
+explain select * from employee where salary<19000;
+
+explain select * from employee where salary<140000;
+
+show index from employee;
+
+create unique index pan_number on employee(pan_number);
+
+select * from employee;
+
+insert into employee values(11,'Rahul','Singh',20000,'1990-12-12',"Male",3,'BAYPP7954H');
+
+
+explain select * from employee where pan_number="BAYPP7954H";
+
+create index first_last_idx on employee(first_name,last_name);
+
+select * from employee where first_name="Rahul" and last_name="Singh";
+
+explain select * from employee where first_name="Rahul" and last_name="Singh";
+
+
+select * from employee where  last_name="Singh" and first_name="Rahul";
+
+explain select * from employee where  last_name="Singh" and first_name="Rahul";
+
+explain select * from employee where  last_name="Singh";
+
+show indexes from employee;
+
+drop index last_name_idx on employee;
+
+alter table employee add fulltext(first_name,last_name);
+
+select * from employee where match(first_name,last_name) against("Rahul");
+
+Alter table employee
+add column created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+add column updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+ALTER TABLE employee
+add unique(id ,dept_id);
+
+
+alter table cp_user_notes 
+drop constraint user_id_2;
+
+
+select * from employee e ;
+
+select * from cp_user_notes cun ;
+
+alter table cp_user_notes 
+drop constraint user_id_2;
+
+desc cp_user_notes ;
+
+
+insert into cp_user_notes(id,user_id,opponent_id,note,is_active,color) values
+(5,15,24,"notes",1,0);
+
+alter table cp_user_notes 
+drop index composite_idx;
+
+alter table cp_user_notes 
+add unique(user_id,opponent_id);
+
+show indexes from cp_user_notes;
+
+
+SELECT * FROM cp_user_notes  a
+JOIN
+cp_user_notes  b
+ON a.user_id= b.user_id AND a.opponent_id=b.opponent_id AND a.id != b.id;
+
+
+alter table employee add column device_serial_no int;
+
+update  employee set device_serial_no=1 where id=2;
+
+create unique index device_serial_no on employee(device_serial_no);
+-Duplicate entry '1' for key 'employee.device_serial_no'
+
+create unique index device_serial_no_idx on employee (device_serial_no) where device_serial_no>1;
+-mysql does not have filtered indexes.You cannot do conditional indexing.
+
+
+alter table employee  add full_name varchar(50) 
+generated always as (concat(first_name,' ',last_name))
+virtual not null; 
+
+select full_name from employee e ;
+
+alter table employee 
+drop column full_name;
+
+alter table employee  add full_name varchar(50) 
+generated always as (concat(first_name,' ',last_name))
+stored;
+
+alter table employee 
+drop column full_name;
+
+alter table employee add hra int as (salary*5/100);
+select * from employee e ;
+
+show engines;
+alter table employee engine=MyISAM;
+
+alter table employee 
+add column ssn int invisible;
+
+select ssn  from employee e ;
+
+desc employee ;
+
+show create table employee ;
+
+CREATE TABLE `employee` (
+  `id` int NOT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `salary` int DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `dept_id` int DEFAULT NULL,
+  `pan_number` varchar(10) DEFAULT NULL,
+  `device_serial_no` int DEFAULT NULL,
+  `hra` int GENERATED ALWAYS AS (((`salary` * 5) / 100)) VIRTUAL,
+  `ssn` int DEFAULT NULL /*!80023 INVISIBLE */,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pan_number` (`pan_number`),
+  KEY `dept_id` (`dept_id`),
+  KEY `salary_idx` (`salary`),
+  KEY `first_last_idx` (`first_name`,`last_name`),
+  FULLTEXT KEY `first_name` (`first_name`,`last_name`),
+  FULLTEXT KEY `first_name_2` (`first_name`,`last_name`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `department` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;;
+
+
+
+
+explain select * from employee e where first_name like "%ahul" or last_name like "%ahul";
+
+explain select * from employee e where id=1;
+
+
+
+explain select * from employee where match(first_name,last_name) against("Rahul");
+
+explain select e.id,d.id from employee e inner join department d on e.dept_id=d.id;
+
+
+create index dept_id on department(id);
+drop index dept_id on department;
+
+
+select distinct count(first_name) from employee e ;
+
+select e.id,d.id from employee e inner join department d on e.dept_id=d.id group by e.id;
+
+select first_name,count(*) from employee e group by first_name having count(distinct id)>0;
+
+select first_name,group_concat(id) from employee e group by first_name ; 
+
+select distinct first_name  from employee e order by first_name desc ;
+
+select dept_id,id from employee e ;
+
+select e.dept_id,group_concat(e.id) from employee e group by e.dept_id ; 
+
+
+
+
+----------------------------JOINS----------------------------------------
+
+
+select * from employee e ;
+
+select * from department d ;
+
+select e.first_name ,d.name  from employee e inner join department d on (e.dept_id=d.id);
+
+
+select e.id,e.first_name ,d.name,d.id from employee e left join department d on (e.dept_id=d.id);
+
+select e.id,e.first_name ,d.name,d.id from employee e right join department d on (e.dept_id=d.id);
+
+
+select e.first_name,d.name  from employee e cross join department d ;
+
+
+#self join
+select e1.first_name,e1.salary,e2.first_name,e2.salary  from employee e1,employee  e2 where e1.salary<>e2.salary;
+
+#full join
+select * from employee e left join department d on (e.dept_id=d.id)
+union 
+select * from employee e right join department d on (e.dept_id=d.id);
+
+
+select * from employee e left join department d on (e.dept_id=d.id)
+union all
+select * from employee e right join department d on (e.dept_id=d.id);
+
+select * from employee e left join department d on (e.dept_id=d.id)
+intersect
+select * from employee e right join department d on (e.dept_id=d.id);
+
+#Minus operator
+select * from employee e left join department d on (e.dept_id=d.id) where d.id is null;
+
+
+
+
+CREATE TABLE Meals(MealName VARCHAR(100));
+
+CREATE TABLE Drinks(DrinkName VARCHAR(100));
+
+INSERT INTO Drinks
+VALUES('Orange Juice'), ('Tea'), ('Cofee');
+
+
+INSERT INTO Meals VALUES('Omlet'), ('Fried Egg'), ('Sausage');
+
+select * from Meals cross join Drinks;
+
+select count(*) from employee e ;
+
+select count(*) from department d ;
+
+select * from Meals,Drinks;
+
+select * from employee e ,department d ;
+
+
+select concat_ws(' with ',MealName,DrinkName) as MenuList from Meals cross join Drinks; 
+

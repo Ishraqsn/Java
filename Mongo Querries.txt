@@ -1,0 +1,2645 @@
+show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local   192.00 KiB
+use languageDb
+switched to db languageDb
+
+db.dropDatabase()
+{ ok: 1, dropped: 'languageDb' }
+use myDb
+switched to db myDb
+db.myCollection.insert({})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64a65ed2313cf9eba5763f14")
+  }
+}
+
+
+db.myCollection.insert({}
+name:"ishraq",
+age:25
+)
+
+
+db.myCollection.insert({
+name:"ishraq",
+age:25
+})
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64a65f46313cf9eba5763f15")
+  }
+}
+db.createCollection("employees")
+{ ok: 1 }
+db.createCollection("departments")
+{ ok: 1 }
+db.createCollection("address")
+{ ok: 1 }
+show collections
+address
+departments
+employees
+myCollection
+db.myCollection.drop()
+true
+myDb
+
+db.employees.insertOne({ 
+    firstName: "John",
+    lastName: "King",
+    email: "john.king@abc.com"
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a66590313cf9eba5763f17")
+}
+db.myCollection.insertOne({ 
+    firstName: "John",
+    lastName: "King",
+    email: "john.king@abc.com"
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a665f9313cf9eba5763f18")
+}
+db.myCollection.renameCollection("employee")
+{ ok: 1 }
+db.copyDatabase("myDb","organization")
+MongoshDeprecatedError: [COMMON-10003] `copyDatabase()` was removed because it was deprecated in MongoDB 4.0
+show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local   192.00 KiB
+myDb     56.00 KiB
+
+
+db.employees.find.pretty()
+TypeError: db.employees.find.pretty is not a function
+db.employees.find.pretty
+
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+db.myCollection.insertOne({ 
+    firstName: "Ishraq",
+    lastName: "Ansari",
+    email: "ishraq.ansari@deltatech.gg"
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a6678c313cf9eba5763f19")
+}
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+db.employees.insertOne({ 
+    firstName: "Ishraq",
+    lastName: "Ansari",
+    email: "ishraq.ansari@deltatech.gg"
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a667cc313cf9eba5763f1a")
+}
+db.employees.insertOne({ 
+    firstName: "Aa",
+    lastName: "Bb",
+    email: "aa.bb@deltatech.gg"
+})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a667ee313cf9eba5763f1b")
+}
+db.employees.insertOne({ 
+    _id:"1",
+    firstName: "first",
+    lastName: "last",
+    email: "first.last@deltatech.gg"
+})
+{
+  acknowledged: true,
+  insertedId: '1'
+}
+db.employees.insert(
+    [
+        { 
+            firstName: "James",
+            lastName: "Bond",
+            email: "james.bond@abc.com"
+        },
+        { 
+                firstName: "Sachin",
+                lastName: "T",
+                email: "sachin.t@abc.com"
+        },
+        { 
+                firstName: "James",
+                lastName: "Dunn",
+                email: "james.dunn@abc.com"
+        }
+    ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64a6694d313cf9eba5763f1c"),
+    '1': ObjectId("64a6694d313cf9eba5763f1d"),
+    '2': ObjectId("64a6694d313cf9eba5763f1e")
+  }
+}
+db.employees.insert(
+    [
+        { 
+            firstName: "Steve",
+            lastName: "J",
+            email: "steve.j@abc.com"
+        },
+        { 
+                _id:1,
+                firstName: "Kapil",
+                lastName: "D",
+                email: "kapil.d@abc.com"
+        },
+        { 
+                firstName: "Amitabh",
+                lastName: "B",
+                email: "amitabh.b@abc.com"
+        },
+    ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64a669a4313cf9eba5763f1f"),
+    '1': 1,
+    '2': ObjectId("64a669a4313cf9eba5763f20")
+  }
+}
+db.employees.insert(
+    [
+        { 
+                _id:1,
+                firstName: "Kapil",
+                lastName: "D",
+                email: "kapil.d@abc.com"
+        }
+    ])
+MongoBulkWriteError: E11000 duplicate key error collection: myDb.employees index: _id_ dup key: { _id: 1 }
+db.employees.insert(
+    [
+        { 
+            firstName: "Steve",
+            lastName: "J",
+            email: "steve.j@abc.com"
+        },
+        { 
+                _id:1,
+                firstName: "Kapil",
+                lastName: "D",
+                email: "kapil.d@abc.com"
+        },
+        { 
+                firstName: "Amitabh",
+                lastName: "B",
+                email: "amitabh.b@abc.com"
+        },
+    ],
+    { ordered: false}
+)
+MongoBulkWriteError: E11000 duplicate key error collection: myDb.employees index: _id_ dup key: { _id: 1 }
+db.employees.insertMany([
+    { 
+        _id:10,
+        firstName: "John",
+        lastName: "King",
+        email: "john.king@abc.com",
+        salary: 5000
+    },
+    { 
+        _id:2,
+        firstName: "Sachin",
+        lastName: "T",
+        email: "sachin.t@abc.com",
+        salary: 8000
+    },
+    { 
+        _id:3,
+        firstName: "James",
+        lastName: "Bond",
+        email: "jamesb@abc.com",
+        salary: 7500
+    },
+    { 
+        _id:4,
+        firstName: "Steve",
+        lastName: "J",
+        email: "steve.j@abc.com",
+        salary: 9000
+
+    },
+    { 
+        _id:5,
+        firstName: "Kapil",
+        lastName: "D",
+        email: "kapil.d@abc.com",
+        salary: 4500
+
+    },
+    { 
+        _id:6,
+        firstName: "Amitabh",
+        lastName: "B",
+        email: "amitabh.b@abc.com",
+        salary: 11000
+    }
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 10,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5,
+    '5': 6
+  }
+}
+db.employees.insertMany([
+    { 
+        _id:10,
+        firstName: "John",
+        lastName: "King",
+        email: "john.king@abc.com",
+        salary: 5000
+    },
+    { 
+        _id:2,
+        firstName: "Sachin",
+        lastName: "T",
+        email: "sachin.t@abc.com",
+        salary: 8000
+    },
+    { 
+        _id:3,
+        firstName: "James",
+        lastName: "Bond",
+        email: "jamesb@abc.com",
+        salary: 7500
+    },
+    { 
+        _id:4,
+        firstName: "Steve",
+        lastName: "J",
+        email: "steve.j@abc.com",
+        salary: 9000
+
+    },
+    { 
+        _id:5,
+        firstName: "Kapil",
+        lastName: "D",
+        email: "kapil.d@abc.com",
+        salary: 4500
+
+    },
+    { 
+        _id:6,
+        firstName: "Amitabh",
+        lastName: "B",
+        email: "amitabh.b@abc.com",
+        salary: 11000
+    }
+]){}
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+
+
+
+db.employees.findOne({firstName:"Amitabh"})
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+db.employees.find({firstName:"Amitabh"})
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+db.employees.find({id:{$in:[]1,2,3}})
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+db.employees.find({id:{$in:[1,2,3]}})
+db.employees.find({id:{$in:[2,3]}})
+db.employees.find({_id:{$in:[2,3]}})
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.find({$not:{_id:"1"}})
+MongoServerError: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+db.employees.find({$nor:{_id:"1"}})
+MongoServerError: $nor must be an array
+db.employees.find({$nor:[{_id:"1"}]})
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+db.employees.find({$nor:[{_id:"1"},{_id:1}]})
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+
+
+
+
+db.employees.find({email:{$not:{$eq:"kapil.d@abc.com"}}})
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+
+
+
+db.employees.find({$firstName:{$regex:"Amitabh"}}).pretty
+[Function: pretty] {
+  returnType: 'this',
+  serverVersions: [ '0.0.0', '999.999.999' ],
+  apiVersions: [ 0, Infinity ],
+  topologies: [ 'ReplSet', 'Sharded', 'LoadBalanced', 'Standalone' ],
+  returnsPromise: false,
+  deprecated: false,
+  platforms: [ 'Compass', 'Browser', 'CLI' ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+db.employees.find({$firstName:{$regex:"Amitabh"}}).pretty()
+MongoServerError: unknown top level operator: $firstName. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.
+db.employees.find({$firstName:{$regex:"Amitabh"}})
+MongoServerError: unknown top level operator: $firstName. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.
+db.employees.find({firstName:{$regex:"Amitabh"}})
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+db.employees.find({firstName:{$regex:"amitabh"}})
+db.employees.find({firstName:{$regex:"amitabh",$option:"$i"}})
+MongoServerError: unknown operator: $option
+db.employees.find({firstName:{$regex:"amitabh",$options:"$i"}})
+MongoServerError:  invalid flag in regex options: $
+db.employees.find({firstName:{$regex:"amitabh",$options:"i"}})
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+myDb
+Selection deleted
+
+
+
+db.employees.createIndex({firstName:"text"})
+firstName_text
+db.employees.find({$text:{$search:"Amitabh"}})
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+db.emop
+myDb.emop
+
+
+
+
+
+db.employees.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  {
+    v: 2,
+    key: { _fts: 'text', _ftsx: 1 },
+    name: 'firstName_text',
+    weights: { firstName: 1 },
+    default_language: 'english',
+    language_override: 'language',
+    textIndexVersion: 3
+  }
+]
+db.employees.dropIndex("firstName_text")
+{ nIndexesWas: 2, ok: 1 }
+db.employees.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+myDb
+Selection deleted
+
+
+db.employees.createIndex({firstName:"text",lastName:"text"},{weights:{firstName:10,lastName:5},name:"TextIndex"})
+TextIndex
+db.employees.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  {
+    v: 2,
+    key: { _fts: 'text', _ftsx: 1 },
+    name: 'TextIndex',
+    weights: { firstName: 10, lastName: 5 },
+    default_language: 'english',
+    language_override: 'language',
+    textIndexVersion: 3
+  }
+]
+db.employees.find({$text:{$search:"Amitabh"}})
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+db.employees.explain().find({$text:{$search:"Amitabh"}})
+{
+      stage: 'TEXT_MATCH',
+      indexPrefix: {},
+      indexName: 'TextIndex',
+      parsedTextQuery: {
+        terms: [
+          'amitabh'
+        ],
+        negatedTerms: [],
+        phrases: [],
+        negatedPhrases: []
+      },
+      textIndexVersion: 3,
+      inputStage: {
+        stage: 'FETCH',
+        inputStage: {
+          stage: 'IXSCAN',
+          keyPattern: {
+            _fts: 'text',
+            _ftsx: 1
+          },
+          indexName: 'TextIndex',
+          isMultiKey: true,
+          isUnique: false,
+          isSparse: false,
+          isPartial: false,
+          indexVersion: 2,
+          direction: 'backward',
+          indexBounds: {}
+        }
+      }
+    },
+    rejectedPlans: []
+  },
+  command: {
+    find: 'employees',
+    filter: {
+      '$text': {
+        '$search': 'Amitabh'
+      }
+    },
+    '$db': 'myDb'
+  },
+  serverInfo: {
+    host: 'Ishraq-Ansari',
+    port: 27017,
+    version: '6.0.7',
+    gitVersion: '202ad4fda2618c652e35f5981ef2f903d8dd1f1a'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}
+db.employees.createIndex("$**","text")
+MongoshInvalidInputError: [COMMON-10001] The "options" argument must be an object.
+db.employees.createIndex("$**":"text")
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+db.employees.createIndex({"$**":"text"})
+MongoServerError: An equivalent index already exists with a different name and options. Requested index: { v: 2, key: { _fts: "text", _ftsx: 1 }, name: "$**_text", weights: { $**: 1 }, default_language: "english", language_override: "language", textIndexVersion: 3 }, existing index: { v: 2, key: { _fts: "text", _ftsx: 1 }, name: "TextIndex", weights: { firstName: 10, lastName: 5 }, default_language: "english", language_override: "language", textIndexVersion: 3 }
+db.empo
+myDb.empo
+db.employees.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  {
+    v: 2,
+    key: { _fts: 'text', _ftsx: 1 },
+    name: 'TextIndex',
+    weights: { firstName: 10, lastName: 5 },
+    default_language: 'english',
+    language_override: 'language',
+    textIndexVersion: 3
+  }
+]
+db.employees.find($where:"this.firstName==this.lastName")
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+db.employees.find({$where:"this.firstName==this.lastName"})
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+myDb
+Selection deleted
+
+db.employees.findOneAndUpdate({"_id":{$eq:ObjectId("64a66590313cf9eba5763f17"),{$set:{"lastName":"ansari"}}})
+
+db.employees.find($where:"this.firstName==this.lastName")
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+db.employees.find({$where:"this.firstName==this.lastName"})
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.updateOne({"title":"Amitabh"},{$set:{"title":"Big B"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.updateOne({"firstName":"Amitabh"},{$set:{"firstName":"Big B"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.employees.find()\
+Error: clone(t={}){const r=t.loc||{};return e({loc:new Position("line"in r?r.line:this.loc.line,"column"in r?r.column:...<omitted>...)} could not be cloned.
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.update({"firstName":"Amitabh"},{$set:{"firstName":"Amit"}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amit',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.updateMany({"firstName":"Amitabh"},{$set:{"firstName":"Amit"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amit',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amit',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.updateMany({"firstName":"Amit"},{$set:{"firstName":"Amitabh"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.employees.find()
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+
+
+
+db.employees.aggregate([{$group:{firstName:"Amit"}}])
+MongoServerError: The field 'firstName' must be an accumulator object
+db.employees.aggregate([{$group:{_id:"$propertyType"}}])
+{
+  _id: null
+}
+
+
+
+db.employees.aggregate([{$match:{_id:1}}])
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+db.employees.aggregate([{$project:{_id:1}}])
+{
+  _id: ObjectId("64a66590313cf9eba5763f17")
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a")
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b")
+}
+{
+  _id: '1'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c")
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d")
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e")
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f")
+}
+{
+  _id: 1
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20")
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21")
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22")
+}
+{
+  _id: 10
+}
+{
+  _id: 2
+}
+{
+  _id: 3
+}
+{
+  _id: 4
+}
+{
+  _id: 5
+}
+{
+  _id: 6
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417")
+}
+db.employees.aggregate([{$project:{_id:0,email:null}}])
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+{
+  email: null
+}
+
+
+
+
+db.employees.aggregate({$group:{_id:"$firstName","total":{$sum:1}}})
+{
+  _id: 'Big B',
+  total: 1
+}
+{
+  _id: 'Bond',
+  total: 1
+}
+{
+  _id: 'John',
+  total: 2
+}
+{
+  _id: 'Kapil',
+  total: 2
+}
+{
+  _id: 'Ishraq',
+  total: 1
+}
+{
+  _id: 'Steve',
+  total: 3
+}
+{
+  _id: 'Aa',
+  total: 1
+}
+{
+  _id: 'Sachin',
+  total: 2
+}
+{
+  _id: 'Amitabh',
+  total: 2
+}
+{
+  _id: 'James',
+  total: 3
+}
+{
+  _id: 'first',
+  total: 1
+}
+db.employees.aggregate({$match:{"salary":{$gt:7500}}})
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+
+
+
+db.employees.aggregate({$match:{"salary":{$gt:7500}}})
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+
+({$match:{"salary":{$gt:7500}}})
+{ '$match': { salary: { '$gt': 7500 } } }
+db.employees.find().sort({"firstName":-1})
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+db.employees.find().sort({"firstName":1})
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+db.employees.find().skip(1);
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+db.employees.find().limit(5).skip(2);
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+
+
+
+
+db.employees.insertOne({"firstName":"Ram","lastName":"Sharma","salary":20000,"degrees":["BCA","MCA","PHD"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId("64a6ac8f313cf9eba5763f23")
+}
+
+
+
+
+db.employees.aggregate({$project:{firstName:1,lastName:1,degrees:1}},{$unwind:"$degrees"})
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  degrees: 'BCA'
+}
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  degrees: 'MCA'
+}
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  degrees: 'PHD'
+}
+myDb
+Selection deleted
+
+
+
+
+db.employees.aggregate({$group:{_id:"$firstName"}})
+{
+  _id: 'Big B'
+}
+{
+  _id: 'Bond'
+}
+{
+  _id: 'John'
+}
+{
+  _id: 'Kapil'
+}
+{
+  _id: 'Ram'
+}
+{
+  _id: 'Ishraq'
+}
+{
+  _id: 'Steve'
+}
+{
+  _id: 'Aa'
+}
+{
+  _id: 'Sachin'
+}
+{
+  _id: 'Amitabh'
+}
+{
+  _id: 'James'
+}
+{
+  _id: 'first'
+}
+
+
+db.employees.aggregate({$project:{firstName:1,lastName:1,salary:1}}
+,{$match:{"salary":{$gt:7500}}}
+,{$group:{_id:"$firstName"},"total":{$sum:1}}
+.sort({"salary":-1}).limit(5).skip(2);
+
+
+db.employees.aggregate({$sort:{"salary":-1}})
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  salary: 20000,
+  degrees: [
+    'BCA',
+    'MCA',
+    'PHD'
+  ]
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com',
+  salary: 11000
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com',
+  salary: 9000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  email: 'jamesb@abc.com',
+  salary: 7500
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com',
+  salary: 5000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com',
+  salary: 4500
+}
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King',
+  email: 'john.king@abc.com'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari',
+  email: 'ishraq.ansari@deltatech.gg'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb',
+  email: 'aa.bb@deltatech.gg'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last',
+  email: 'first.last@deltatech.gg'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond',
+  email: 'james.bond@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T',
+  email: 'sachin.t@abc.com'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn',
+  email: 'james.dunn@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D',
+  email: 'kapil.d@abc.com'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J',
+  email: 'steve.j@abc.com'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B',
+  email: 'amitabh.b@abc.com'
+}
+Type "it" for more
+
+
+
+
+db.employees.aggregate({$sort:{"salary":-1}},{$project:{firstName:1,lastName:1,salary:1}})
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  salary: 20000
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  salary: 11000
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  salary: 9000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  salary: 8000
+}
+{
+  _id: 3,
+  firstName: 'James',
+  lastName: 'Bond',
+  salary: 7500
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  salary: 7500
+}
+{
+  _id: 10,
+  firstName: 'John',
+  lastName: 'King',
+  salary: 5000
+}
+{
+  _id: 5,
+  firstName: 'Kapil',
+  lastName: 'D',
+  salary: 4500
+}
+{
+  _id: ObjectId("64a66590313cf9eba5763f17"),
+  firstName: 'John',
+  lastName: 'King'
+}
+{
+  _id: ObjectId("64a667cc313cf9eba5763f1a"),
+  firstName: 'Ishraq',
+  lastName: 'Ansari'
+}
+{
+  _id: ObjectId("64a667ee313cf9eba5763f1b"),
+  firstName: 'Aa',
+  lastName: 'Bb'
+}
+{
+  _id: '1',
+  firstName: 'first',
+  lastName: 'last'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1c"),
+  firstName: 'James',
+  lastName: 'Bond'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1d"),
+  firstName: 'Sachin',
+  lastName: 'T'
+}
+{
+  _id: ObjectId("64a6694d313cf9eba5763f1e"),
+  firstName: 'James',
+  lastName: 'Dunn'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f1f"),
+  firstName: 'Steve',
+  lastName: 'J'
+}
+{
+  _id: 1,
+  firstName: 'Kapil',
+  lastName: 'D'
+}
+{
+  _id: ObjectId("64a669a4313cf9eba5763f20"),
+  firstName: 'Big B',
+  lastName: 'B'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f21"),
+  firstName: 'Steve',
+  lastName: 'J'
+}
+{
+  _id: ObjectId("64a66a45313cf9eba5763f22"),
+  firstName: 'Amitabh',
+  lastName: 'B'
+}
+
+
+
+db.employees.aggregate({$sort:{"salary":-1}},{$project:{firstName:1,lastName:1,salary:1}},{$limit:5})
+{
+  _id: ObjectId("64a6ac8f313cf9eba5763f23"),
+  firstName: 'Ram',
+  lastName: 'Sharma',
+  salary: 20000
+}
+{
+  _id: 6,
+  firstName: 'Amitabh',
+  lastName: 'B',
+  salary: 11000
+}
+{
+  _id: 4,
+  firstName: 'Steve',
+  lastName: 'J',
+  salary: 9000
+}
+{
+  _id: 2,
+  firstName: 'Sachin',
+  lastName: 'T',
+  salary: 8000
+}
+{
+  _id: ObjectId("64a68c146fc597d259d3d417"),
+  firstName: 'Bond',
+  lastName: 'Bond',
+  salary: 7500
+}
+db.employees.aggregate({$group:{_id:"firstName"}})
+{
+  _id: 'firstName'
+}
+db.employees.aggregate({$group:{_id:"$firstName"}})
+{
+  _id: 'Kapil'
+}
+{
+  _id: 'James'
+}
+{
+  _id: 'first'
+}
+{
+  _id: 'Big B'
+}
+{
+  _id: 'Amitabh'
+}
+{
+  _id: 'Sachin'
+}
+{
+  _id: 'Bond'
+}
+{
+  _id: 'Ram'
+}
+{
+  _id: 'Ishraq'
+}
+{
+  _id: 'Steve'
+}
+{
+  _id: 'Aa'
+}
+{
+  _id: 'John'
+}
+myDb
+Selection deleted
+
+
+
+
+
+
+
